@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import classes from "./Checkout.module.css";
 
-const isEmpty = (value) => value.trim() === "";
-const isFiveChars = (value) => value.trim().length === 5;
+const isEmpty = value => value.trim() === '';
+const isFiveChars = value => value.trim().length === 5;
 
 const Checkout = (props) => {
   const [formInputsValidity, setFormInputsValidity] = useState({
@@ -22,7 +22,7 @@ const Checkout = (props) => {
 
     const enteredName = nameInputRef.current.value;
     const enteredStreet = streetInputRef.current.value;
-    const enteredPostalCode = nameInputRef.current.value;
+    const enteredPostalCode = postalCodeInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
@@ -47,6 +47,13 @@ const Checkout = (props) => {
       // submit the cart data
       return;
     }
+
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      city: enteredCity,
+      postalCode: enteredPostalCode
+    });
   };
 
   const nameControlClasses = `${classes.control} ${
@@ -56,7 +63,7 @@ const Checkout = (props) => {
     formInputsValidity.street ? "" : classes.invalid
   }`;
   const postalCodeControlClasses = `${classes.control} ${
-    formInputsValidity.postalCode ? "" : classes.invalid
+    formInputsValidity.postalCode ? '' : classes.invalid
   }`;
   const cityControlClasses = `${classes.control} ${
     formInputsValidity.city ? "" : classes.invalid
